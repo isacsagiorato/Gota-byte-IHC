@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Página de Login</title>
+<script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    .bg-gradient-custom {
+      background: linear-gradient(#3b82f6 0%, #2563eb 100%);
+    }
+    .input-focus:focus {
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.3);
+    }
+    .toggle-input:checked + .toggle-slider {
+      background-color: #667eea;
+    }
+    .toggle-input:checked + .toggle-slider:before {
+      transform: translateX(1.25rem);
+    }
+  </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col">
+
+  <!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Página de Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        .faq-item {
+            transition: all 0.3s ease;
+        }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        .faq-item.active .faq-answer {
+            max-height: 300px;
+        }
+        .faq-item.active .faq-toggle {
+            transform: rotate(180deg);
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 font-sans">
+    
+    <!-- ✅ NAVBAR RESPONSIVA -->
+    <nav class="bg-white shadow-sm py-4">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <div class="flex items-center">
+                <i class="fas fa-tint text-cyan-500 text-2xl mr-2"></i>
+                <span class="text-xl font-bold">Gotabyte</span>
+            </div>
+
+            <!-- Botão hamburguer (mobile) -->
+            <button class="md:hidden text-2xl text-gray-600" id="menu-button">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <!-- Menu desktop -->
+          <div class="hidden md:flex space-x-4 items-center flex-wrap">
+            <a href="paginain.html" class="nav-link">Home</a>
+            <a href="feed.html" class="nav-link">Feedback</a>
+            <a href="ajuda.html" class="nav-link">Ajuda</a>
+            <a href="relatorio.html" class="nav-link">Historico</a>
+            <a href="dicas.html" class="nav-link">Dicas</a>
+            
+            <a href="modo.html" class="block nav-link">Alerta</a>
+            <a href="necessidades.html" class="nav-link">Forum</a>
+           
+            <a href="perfil.html" class="nav-link"><i class="fas fa-user mr-1"></i> Perfil</a>
+            <a href="entrar.html" class="nav-link"><i class="fas fa-sign-in-alt mr-1"></i> Login</a>
+            <a href="login.html" class="bg-cyan-600 text-white px-4 py-2 rounded hover:bg-cyan-700">
+                <i class="fas fa-user-plus mr-1"></i> Cadastro
+            </a>
+        </div>
+    </div>
+    <div id="mobile-menu" class="md:hidden hidden px-4 mt-2 space-y-2">
+        <a href="paginain.html" class="block nav-link">Home</a>
+        <a href="feed.html" class="block nav-link">Feedback</a>
+        <a href="ajuda.html" class="block nav-link">Ajuda</a>
+        <a href="relatorio.html" class="block nav-link">Historico</a>
+        <a href="dicas.html" class="block nav-link">Dicas</a>
+        
+        <a href="modo.html" class="block nav-link">Alerta</a>
+        <a href="necessidades.html" class="block nav-link">Forum</a>
+        
+        <a href="perfil.html" class="block nav-link">Perfil</a>
+        <a href="entrar.html" class="block nav-link">Login</a>
+        <a href="login.html" class="block bg-cyan-600 text-white px-4 py-2 rounded hover:bg-cyan-700">Cadastro</a>
+    </div>
+    </nav>
+
+
+
+  <!-- Formulário -->
+  <main class="flex-grow flex items-center justify-center p-4">
+    <div class="w-full max-w-md">
+      <div class="bg-white rounded-xl shadow-2xl overflow-hidden">
+        <div class="bg-gradient-custom py-6 px-8 text-center">
+          <h1 class="text-2xl font-bold text-white">Bem-vindo de volta</h1>
+          <p class="text-white opacity-90 mt-1">Faça login para acessar sua conta</p>
+        </div>
+
+        <div class="px-8 py-6">
+          <form id="loginForm">
+            <!-- Alternar entre email e telefone -->
+            <div class="flex items-center justify-center mb-6">
+              <span class="text-sm font-medium mr-3">Email</span>
+              <label class="relative inline-flex items-center cursor-pointer">
+                <input type="checkbox" id="loginMethodToggle" class="toggle-input sr-only" />
+                <div class="toggle-slider w-11 h-6 bg-gray-200 rounded-full transition before:absolute before:h-5 before:w-5 before:bg-white before:rounded-full before:transition-transform before:transform before:translate-x-1"></div>
+              </label>
+              <span class="text-sm font-medium ml-3">Telefone</span>
+            </div>
+
+            <!-- Email -->
+            <div id="emailField" class="mb-4">
+              <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+              <div class="relative">
+                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <i class="fas fa-envelope text-gray-400"></i>
+                </div>
+                <input type="email" id="email" name="email"
+                  class="input-focus w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500 transition"
+                  placeholder="seu@email.com" required>
+              </div>
+            </div>
+
+            <!-- Telefone -->
+            <div id="phoneField" class="mb-4 hidden">
+              <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Número de telefone</label>
+              <div class="relative">
+                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <i class="fas fa-phone text-gray-400"></i>
+                </div>
+                <input type="tel" id="phone" name="phone"
+                  class="input-focus w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500 transition"
+                  placeholder="(00) 00000-0000">
+              </div>
+            </div>
+
+            <!-- Senha -->
+            <div class="mb-4">
+              <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Senha</label>
+              <div class="relative">
+                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <i class="fas fa-lock text-gray-400"></i>
+                </div>
+                <input type="password" id="password" name="password"
+                  class="input-focus w-full pl-10 pr-10 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500 transition"
+                  placeholder="••••••••" required>
+                <button type="button" id="togglePassword" class="absolute right-3 top-2 text-gray-400 hover:text-gray-600">
+                  <i class="fas fa-eye"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- Lembrar e Esqueceu -->
+            <div class="flex items-center justify-between mb-6">
+              <div class="flex items-center">
+                <input id="remember" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
+                <label for="remember" class="ml-2 block text-sm text-gray-700">Lembrar-me</label>
+              </div>
+              <a href="recup.html" class="text-sm text-indigo-600 hover:text-indigo-500">Esqueceu a senha?</a>
+            </div>
+
+            <!-- Botão Entrar -->
+            <button type="submit"
+              class="w-full bg-gradient-custom text-white py-2 px-4 rounded-lg font-medium hover:opacity-90 transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+              Entrar
+            </button>
+          </form>
+
+          <!-- Link Cadastro -->
+          <div class="mt-6 text-center">
+            <p class="text-sm text-gray-600">
+              Não tem uma conta?
+              <a href="login.html" class="text-indigo-600 hover:text-indigo-500 font-medium">Cadastre-se</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- JavaScript funcional -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const loginMethodToggle = document.getElementById('loginMethodToggle');
+      const emailField = document.getElementById('emailField');
+      const phoneField = document.getElementById('phoneField');
+      const passwordInput = document.getElementById('password');
+      const togglePassword = document.getElementById('togglePassword');
+      const phoneInput = document.getElementById('phone');
+
+      // Alternar entre email e telefone
+      loginMethodToggle.addEventListener('change', function () {
+        if (this.checked) {
+          emailField.classList.add('hidden');
+          phoneField.classList.remove('hidden');
+          document.getElementById('email').removeAttribute('required');
+          phoneInput.setAttribute('required', '');
+        } else {
+          emailField.classList.remove('hidden');
+          phoneField.classList.add('hidden');
+          document.getElementById('email').setAttribute('required', '');
+          phoneInput.removeAttribute('required');
+        }
+      });
+
+      // Mostrar/ocultar senha
+      togglePassword.addEventListener('click', () => {
+        const type = passwordInput.type === 'password' ? 'text' : 'password';
+        passwordInput.type = type;
+        togglePassword.innerHTML = type === 'password'
+          ? '<i class="fas fa-eye"></i>'
+          : '<i class="fas fa-eye-slash"></i>';
+      });
+
+      // Máscara telefone
+      phoneInput.addEventListener('input', function (e) {
+        let value = e.target.value.replace(/\D/g, '');
+        if (value.length > 11) value = value.slice(0, 11);
+        value = value.replace(/^(\d{2})(\d)/g, '($1) $2');
+        if (value.length > 10) value = value.replace(/(\d{5})(\d)/, '$1-$2');
+        else if (value.length > 9) value = value.replace(/(\d{4})(\d)/, '$1-$2');
+        e.target.value = value;
+      });
+
+      // Envio do formulário
+      document.getElementById('loginForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+        alert("Login enviado com sucesso!");
+      });
+    });
+      document.addEventListener('DOMContentLoaded', function () {
+        const links = document.querySelectorAll('.nav-link');
+        const currentPage = window.location.pathname.split('/').pop();
+
+        links.forEach(link => {
+            const href = link.getAttribute('href');
+            if (href === currentPage) {
+                link.classList.add('text-cyan-600', 'font-semibold');
+            } else {
+                link.classList.add('text-gray-600', 'hover:text-cyan-600');
+            }
+        });
+    });
+    // Toggle menu mobile
+        document.getElementById('menu-button').addEventListener('click', function () {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+
+        // Abrir primeiro item do FAQ
+        document.addEventListener('DOMContentLoaded', function () {
+            const firstFaq = document.querySelector('.faq-item');
+            if (firstFaq) firstFaq.classList.add('active');
+
+            // Destacar link atual
+            const links = document.querySelectorAll('.nav-link');
+            const currentPage = window.location.pathname.split('/').pop();
+
+            links.forEach(link => {
+                const href = link.getAttribute('href');
+                if (href === currentPage) {
+                    link.classList.add('text-cyan-600', 'font-semibold');
+                } else {
+                    link.classList.add('text-gray-600', 'hover:text-cyan-600');
+                }
+            });
+        });
+
+        // FAQ toggle
+        function toggleFAQ(element) {
+            const faqItem = element.closest('.faq-item');
+            faqItem.classList.toggle('active');
+
+            const container = faqItem.parentElement;
+            container.querySelectorAll('.faq-item').forEach(item => {
+                if (item !== faqItem) {
+                    item.classList.remove('active');
+                }
+            });
+        }
+        // Alterna menu mobile
+    document.getElementById('menu-button').addEventListener('click', function () {
+        document.getElementById('mobile-menu').classList.toggle('hidden');
+    });
+
+    // Destaque do link ativo (hover fixo)
+    document.addEventListener('DOMContentLoaded', function () {
+        const links = document.querySelectorAll('.nav-link');
+        const currentPage = window.location.pathname.split('/').pop(); // pega o nome do arquivo atual
+
+        links.forEach(link => {
+            const href = link.getAttribute('href');
+            if (href === currentPage) {
+                // Aplica estilo hover fixo no link ativo
+                link.classList.add('text-cyan-600', 'font-semibold');
+                link.classList.remove('text-gray-600');
+            } else {
+                // Links não ativos ficam cinza com hover cyan
+                link.classList.add('text-gray-600', 'hover:text-cyan-600');
+                link.classList.remove('text-cyan-600', 'font-semibold');
+            }
+        });
+    });
+  </script>
+  <!-- Footer Simples -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <div class="flex items-center">
+                        <i class="fas fa-tint text-cyan-400 text-2xl mr-2"></i>
+                        <span class="text-xl font-bold">Gotabyte</span>
+                    </div>
+                    <p class="text-gray-400 mt-2">Us for water, water for us</p>
+                </div>
+                
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-white">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+                <p>© 2023 Gotabyte. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

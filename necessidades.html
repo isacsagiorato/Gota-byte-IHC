@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Atendimento de Necessidades - Água</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .dropdown-options {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        .dropdown-options.show {
+            max-height: 300px;
+            transition: max-height 0.3s ease-in;
+        }
+        .custom-radio input:checked + label {
+            background-color: #3b82f6;
+            color: white;
+        }
+        .custom-checkbox input:checked + label {
+            background-color: #3b82f6;
+            color: white;
+        }
+        .status-pendente {
+            background-color: #fef3c7;
+            color: #92400e;
+        }
+        .status-andamento {
+            background-color: #bfdbfe;
+            color: #1e40af;
+        }
+        .status-atendida {
+            background-color: #d1fae5;
+            color: #065f46;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+<!-- ✅ NAVBAR RESPONSIVA -->
+<nav class="bg-white shadow-sm py-4">
+    <div class="container mx-auto px-4 flex justify-between items-center">
+        <div class="flex items-center">
+            <i class="fas fa-tint text-cyan-500 text-2xl mr-2"></i>
+            <span class="text-xl font-bold">Gotabyte</span>
+        </div>
+        <button class="md:hidden text-2xl text-gray-600" id="menu-button">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="hidden md:flex space-x-4 items-center flex-wrap">
+            <a href="paginain.html" class="nav-link">Home</a>
+            <a href="feed.html" class="nav-link">Feedback</a>
+            <a href="ajuda.html" class="nav-link">Ajuda</a>
+            <a href="relatorio.html" class="nav-link">Historico</a>
+            <a href="dicas.html" class="nav-link">Dicas</a>
+            
+            <a href="modo.html" class="block nav-link">Alerta</a>
+            <a href="necessidades.html" class="nav-link">Forum</a>
+           
+            <a href="perfil.html" class="nav-link"><i class="fas fa-user mr-1"></i> Perfil</a>
+            <a href="entrar.html" class="nav-link"><i class="fas fa-sign-in-alt mr-1"></i> Login</a>
+            <a href="login.html" class="bg-cyan-600 text-white px-4 py-2 rounded hover:bg-cyan-700">
+                <i class="fas fa-user-plus mr-1"></i> Cadastro
+            </a>
+        </div>
+    </div>
+    <div id="mobile-menu" class="md:hidden hidden px-4 mt-2 space-y-2">
+        <a href="paginain.html" class="block nav-link">Home</a>
+        <a href="feed.html" class="block nav-link">Feedback</a>
+        <a href="ajuda.html" class="block nav-link">Ajuda</a>
+        <a href="relatorio.html" class="block nav-link">Historico</a>
+        <a href="dicas.html" class="block nav-link">Dicas</a>
+        
+        <a href="modo.html" class="block nav-link">Alerta</a>
+        <a href="necessidades.html" class="block nav-link">Forum</a>
+        
+        <a href="perfil.html" class="block nav-link">Perfil</a>
+        <a href="entrar.html" class="block nav-link">Login</a>
+        <a href="login.html" class="block bg-cyan-600 text-white px-4 py-2 rounded hover:bg-cyan-700">Cadastro</a>
+    </div>
+</nav>
+    
+
+    <main class="container mx-auto px-4 py-8">
+        <div class="max-w-4xl mx-auto">
+            <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">Registrar Necessidade</h2>
+                <p class="text-gray-600 mb-6">Utilize este formulário para registrar demandas relacionadas ao abastecimento e uso da água em sua região.</p>
+                
+                <form id="needsForm" class="space-y-6">
+                    <div>
+                        <label class="block text-gray-700 font-medium mb-2">Selecione o tipo de necessidade:</label>
+                        <div class="relative">
+                            <button type="button" id="dropdownButton" class="w-full px-4 py-3 text-left bg-gray-100 rounded-lg flex justify-between items-center">
+                                <span>Selecione as opções</span>
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                            <div id="dropdownOptions" class="dropdown-options absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg">
+                                <div class="p-3 space-y-2 max-h-60 overflow-y-auto">
+                                    <div class="custom-checkbox">
+                                        <input type="checkbox" id="option1" name="needs" value="Falta de água" class="hidden">
+                                        <label for="option1" class="block px-4 py-2 rounded cursor-pointer hover:bg-blue-100">Falta de água</label>
+                                    </div>
+                                    <div class="custom-checkbox">
+                                        <input type="checkbox" id="option2" name="needs" value="Vazamento na rede" class="hidden">
+                                        <label for="option2" class="block px-4 py-2 rounded cursor-pointer hover:bg-blue-100">Vazamento na rede</label>
+                                    </div>
+                                    <div class="custom-checkbox">
+                                        <input type="checkbox" id="option3" name="needs" value="Água com cor/odor" class="hidden">
+                                        <label for="option3" class="block px-4 py-2 rounded cursor-pointer hover:bg-blue-100">Água com cor/odor</label>
+                                    </div>
+                                    <div class="custom-checkbox">
+                                        <input type="checkbox" id="option4" name="needs" value="Pressão baixa" class="hidden">
+                                        <label for="option4" class="block px-4 py-2 rounded cursor-pointer hover:bg-blue-100">Pressão baixa</label>
+                                    </div>
+                                    <div class="custom-checkbox">
+                                        <input type="checkbox" id="option5" name="needs" value="Conta com valor irregular" class="hidden">
+                                        <label for="option5" class="block px-4 py-2 rounded cursor-pointer hover:bg-blue-100">Conta com valor irregular</label>
+                                    </div>
+                                    <div class="custom-checkbox">
+                                        <input type="checkbox" id="option6" name="needs" value="Outros" class="hidden">
+                                        <label for="option6" class="block px-4 py-2 rounded cursor-pointer hover:bg-blue-100">Outros</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="selectedOptions" class="mt-2 flex flex-wrap gap-2"></div>
+                        <div id="otherInputContainer" class="mt-4 hidden">
+                            <label for="otherInput" class="block text-gray-700 font-medium mb-2">Descreva sua necessidade:</label>
+                            <textarea id="otherInput" name="other" rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" maxlength="100"></textarea>
+                            <p class="text-sm text-gray-500 mt-1">Máximo 100 caracteres</p>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-gray-700 font-medium mb-2">Como você avalia o serviço atual?</label>
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
+                            <div class="custom-radio">
+                                <input type="radio" id="rating1" name="rating" value="Desgosto" class="hidden">
+                                <label for="rating1" class="block text-center px-4 py-3 border border-gray-300 rounded-lg cursor-pointer hover:bg-blue-50">
+                                    <i class="fas fa-frown text-2xl mb-1"></i>
+                                    <span>Desgosto</span>
+                                </label>
+                            </div>
+                            <div class="custom-radio">
+                                <input type="radio" id="rating2" name="rating" value="Gosto" class="hidden">
+                                <label for="rating2" class="block text-center px-4 py-3 border border-gray-300 rounded-lg cursor-pointer hover:bg-blue-50">
+                                    <i class="fas fa-meh text-2xl mb-1"></i>
+                                    <span>Gosto</span>
+                                </label>
+                            </div>
+                            <div class="custom-radio">
+                                <input type="radio" id="rating3" name="rating" value="Gosto muito" class="hidden">
+                                <label for="rating3" class="block text-center px-4 py-3 border border-gray-300 rounded-lg cursor-pointer hover:bg-blue-50">
+                                    <i class="fas fa-smile text-2xl mb-1"></i>
+                                    <span>Gosto muito</span>
+                                </label>
+                            </div>
+                            <div class="custom-radio">
+                                <input type="radio" id="rating4" name="rating" value="Outros" class="hidden">
+                                <label for="rating4" class="block text-center px-4 py-3 border border-gray-300 rounded-lg cursor-pointer hover:bg-blue-50">
+                                    <i class="fas fa-comment-dots text-2xl mb-1"></i>
+                                    <span>Outros</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div id="ratingCommentContainer" class="mt-4 hidden">
+                            <label for="ratingComment" class="block text-gray-700 font-medium mb-2">Deixe seu comentário:</label>
+                            <textarea id="ratingComment" name="ratingComment" rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" maxlength="100"></textarea>
+                            <p class="text-sm text-gray-500 mt-1">Máximo 100 caracteres</p>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="location" class="block text-gray-700 font-medium mb-2">Localização (opcional):</label>
+                        <input type="text" id="location" name="location" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Rua, bairro, ponto de referência">
+                    </div>
+
+                    <div class="pt-4">
+                        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition duration-200">
+                            <i class="fas fa-paper-plane mr-2"></i> Enviar Solicitação
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-bold text-gray-800">Lista de Atendimento</h2>
+                    <div class="flex space-x-2">
+                        <button id="filterButton" class="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg flex items-center">
+                            <i class="fas fa-filter mr-2"></i> Filtrar
+                        </button>
+                        <div id="filterDropdown" class="hidden absolute mt-10 right-4 bg-white border border-gray-300 rounded-lg shadow-lg p-3 z-10 w-48">
+                            <div class="space-y-2">
+                                <label class="flex items-center space-x-2">
+                                    <input type="checkbox" class="filter-checkbox" value="pendente" checked>
+                                    <span>Pendente</span>
+                                </label>
+                                <label class="flex items-center space-x-2">
+                                    <input type="checkbox" class="filter-checkbox" value="andamento" checked>
+                                    <span>Em andamento</span>
+                                </label>
+                                <label class="flex items-center space-x-2">
+                                    <input type="checkbox" class="filter-checkbox" value="atendida" checked>
+                                    <span>Atendida</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Descrição</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Data</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Prazo</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="needsList" class="bg-white divide-y divide-gray-200">
+                            <!-- Needs will be populated here by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div id="pagination" class="mt-4 flex justify-between items-center">
+                    <button id="prevPage" class="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg disabled:opacity-50" disabled>
+                        <i class="fas fa-chevron-left mr-2"></i> Anterior
+                    </button>
+                    <span id="pageInfo" class="text-gray-600">Página 1 de 1</span>
+                    <button id="nextPage" class="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg disabled:opacity-50" disabled>
+                        Próximo <i class="fas fa-chevron-right ml-2"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal for need details -->
+    <div id="needModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div class="p-6">
+                <div class="flex justify-between items-start mb-4">
+                    <h3 id="modalTitle" class="text-xl font-bold text-gray-800"></h3>
+                    <button id="closeModal" class="text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                
+                <div class="space-y-4">
+                    <div>
+                        <h4 class="font-medium text-gray-700">Descrição completa:</h4>
+                        <p id="modalDescription" class="text-gray-600 mt-1"></p>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <h4 class="font-medium text-gray-700">Data de registro:</h4>
+                            <p id="modalDate" class="text-gray-600 mt-1"></p>
+                        </div>
+                        <div>
+                            <h4 class="font-medium text-gray-700">Prazo para atendimento:</h4>
+                            <p id="modalDeadline" class="text-gray-600 mt-1"></p>
+                        </div>
+                        <div>
+                            <h4 class="font-medium text-gray-700">Status:</h4>
+                            <p id="modalStatus" class="text-gray-600 mt-1"></p>
+                        </div>
+                        <div>
+                            <h4 class="font-medium text-gray-700">Avaliação do usuário:</h4>
+                            <p id="modalRating" class="text-gray-600 mt-1"></p>
+                        </div>
+                    </div>
+                    
+                    <div id="modalReportContainer" class="hidden">
+                        <h4 class="font-medium text-gray-700">Relatório de atendimento:</h4>
+                        <p id="modalReport" class="text-gray-600 mt-1"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Sample data for demonstration
+            const sampleNeeds = [
+                {
+                    id: 1,
+                    title: "Falta de água no bairro Centro",
+                    description: "Há três dias sem abastecimento de água no bairro Centro, afetando várias residências.",
+                    date: "15/05/2023",
+                    deadline: "20/05/2023",
+                    status: "andamento",
+                    rating: "Desgosto",
+                    report: "Equipe técnica foi enviada para verificar o problema. Identificado obstrução na tubulação principal. Previsão de normalização em 48 horas."
+                },
+                {
+                    id: 2,
+                    title: "Vazamento na Rua das Flores",
+                    description: "Vazamento visível na Rua das Flores, próximo ao número 123. Água está sendo desperdiçada.",
+                    date: "10/05/2023",
+                    deadline: "12/05/2023",
+                    status: "atendida",
+                    rating: "Gosto",
+                    report: "Vazamento reparado em 11/05/2023. Tubulação substituída e área restaurada."
+                },
+                {
+                    id: 3,
+                    title: "Água com cor escura",
+                    description: "Água chegando com cor marrom em várias residências do bairro Jardim.",
+                    date: "18/05/2023",
+                    deadline: "25/05/2023",
+                    status: "pendente",
+                    rating: "Outros",
+                    ratingComment: "Preocupação com possível contaminação",
+                    report: ""
+                },
+                {
+                    id: 4,
+                    title: "Pressão baixa no período da noite",
+                    description: "Pressão da água cai significativamente após as 18h no bairro Vila Nova.",
+                    date: "05/05/2023",
+                    deadline: "15/05/2023",
+                    status: "andamento",
+                    rating: "Gosto muito",
+                    report: "Em análise pela equipe técnica. Suspeita de aumento na demanda no período noturno."
+                },
+                {
+                    id: 5,
+                    title: "Conta com valor acima do normal",
+                    description: "Conta do mês atual veio com valor 50% superior ao habitual, sem aumento no consumo.",
+                    date: "12/05/2023",
+                    deadline: "19/05/2023",
+                    status: "pendente",
+                    rating: "Desgosto",
+                    report: ""
+                }
+            ];
+
+            // Form and dropdown functionality
+            const dropdownButton = document.getElementById('dropdownButton');
+            const dropdownOptions = document.getElementById('dropdownOptions');
+            const selectedOptions = document.getElementById('selectedOptions');
+            const otherInputContainer = document.getElementById('otherInputContainer');
+            const ratingCommentContainer = document.getElementById('ratingCommentContainer');
+            const needsForm = document.getElementById('needsForm');
+            const needsList = document.getElementById('needsList');
+            const filterButton = document.getElementById('filterButton');
+            const filterDropdown = document.getElementById('filterDropdown');
+            const filterCheckboxes = document.querySelectorAll('.filter-checkbox');
+            const prevPageButton = document.getElementById('prevPage');
+            const nextPageButton = document.getElementById('nextPage');
+            const pageInfo = document.getElementById('pageInfo');
+            const needModal = document.getElementById('needModal');
+            const closeModal = document.getElementById('closeModal');
+
+            let currentPage = 1;
+            const itemsPerPage = 5;
+            let filteredNeeds = [...sampleNeeds];
+
+            // Toggle dropdown
+            dropdownButton.addEventListener('click', function() {
+                dropdownOptions.classList.toggle('show');
+                const icon = this.querySelector('i');
+                icon.classList.toggle('fa-chevron-down');
+                icon.classList.toggle('fa-chevron-up');
+            });
+
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!dropdownButton.contains(e.target) && !dropdownOptions.contains(e.target)) {
+                    dropdownOptions.classList.remove('show');
+                    const icon = dropdownButton.querySelector('i');
+                    icon.classList.remove('fa-chevron-up');
+                    icon.classList.add('fa-chevron-down');
+                }
+            });
+
+            // Handle checkbox selection
+            document.querySelectorAll('.custom-checkbox input').forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    updateSelectedOptions();
+                    
+                    // Show/hide "other" input
+                    if (this.id === 'option6' && this.checked) {
+                        otherInputContainer.classList.remove('hidden');
+                    } else if (this.id === 'option6' && !this.checked) {
+                        otherInputContainer.classList.add('hidden');
+                    }
+                });
+            });
+
+            // Handle radio selection
+            document.querySelectorAll('.custom-radio input').forEach(radio => {
+                radio.addEventListener('change', function() {
+                    if (this.value === 'Outros') {
+                        ratingCommentContainer.classList.remove('hidden');
+                    } else {
+                        ratingCommentContainer.classList.add('hidden');
+                    }
+                });
+            });
+
+            function updateSelectedOptions() {
+                selectedOptions.innerHTML = '';
+                const checkedBoxes = document.querySelectorAll('.custom-checkbox input:checked');
+                
+                checkedBoxes.forEach(box => {
+                    if (box.id !== 'option6') {
+                        const pill = document.createElement('div');
+                        pill.className = 'bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm flex items-center';
+                        pill.innerHTML = `
+                            ${box.value}
+                            <button type="button" data-id="${box.id}" class="ml-2 text-blue-600 hover:text-blue-800">
+                                <i class="fas fa-times text-xs"></i>
+                            </button>
+                        `;
+                        selectedOptions.appendChild(pill);
+                    }
+                });
+
+                // Add event listeners to remove buttons
+                document.querySelectorAll('#selectedOptions button').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const checkboxId = this.getAttribute('data-id');
+                        document.getElementById(checkboxId).checked = false;
+                        updateSelectedOptions();
+                        
+                        if (checkboxId === 'option6') {
+                            otherInputContainer.classList.add('hidden');
+                        }
+                    });
+                });
+            }
+
+            // Form submission
+            needsForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Get form values
+                const checkedNeeds = Array.from(document.querySelectorAll('.custom-checkbox input:checked')).map(box => box.value);
+                const otherDescription = document.getElementById('otherInput').value;
+                const rating = document.querySelector('input[name="rating"]:checked')?.value;
+                const ratingComment = document.getElementById('ratingComment').value;
+                const location = document.getElementById('location').value;
+                
+                // Validate form
+                if (checkedNeeds.length === 0) {
+                    alert('Por favor, selecione pelo menos um tipo de necessidade.');
+                    return;
+                }
+                
+                if (!rating) {
+                    alert('Por favor, avalie o serviço atual.');
+                    return;
+                }
+                
+                if (checkedNeeds.includes('Outros') && !otherDescription) {
+                    alert('Por favor, descreva sua necessidade na opção "Outros".');
+                    return;
+                }
+                
+                if (rating === 'Outros' && !ratingComment) {
+                    alert('Por favor, deixe seu comentário sobre a avaliação.');
+                    return;
+                }
+                
+                // Create new need
+                const newNeed = {
+                    id: sampleNeeds.length + 1,
+                    title: checkedNeeds.includes('Outros') ? otherDescription : checkedNeeds.join(', '),
+                    description: checkedNeeds.includes('Outros') ? otherDescription : checkedNeeds.join(', ') + (location ? ` (Local: ${location})` : ''),
+                    date: new Date().toLocaleDateString('pt-BR'),
+                    deadline: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toLocaleDateString('pt-BR'),
+                    status: "pendente",
+                    rating: rating === 'Outros' ? ratingComment : rating,
+                    report: ""
+                };
+                
+                // Add to sample data and refresh list
+                sampleNeeds.unshift(newNeed);
+                filteredNeeds.unshift(newNeed);
+                renderNeedsList();
+                currentPage = 1;
+                updatePagination();
+                
+                // Reset form
+                needsForm.reset();
+                selectedOptions.innerHTML = '';
+                otherInputContainer.classList.add('hidden');
+                ratingCommentContainer.classList.add('hidden');
+                
+                // Show success message
+                alert('Solicitação registrada com sucesso! Você pode acompanhar o status na lista de atendimento.');
+            });
+
+            // Filter functionality
+            filterButton.addEventListener('click', function(e) {
+                e.stopPropagation();
+                filterDropdown.classList.toggle('hidden');
+            });
+
+            // Close filter dropdown when clicking outside
+            document.addEventListener('click', function() {
+                filterDropdown.classList.add('hidden');
+            });
+
+            filterCheckboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    applyFilters();
+                });
+            });
+
+            function applyFilters() {
+                const selectedStatuses = Array.from(document.querySelectorAll('.filter-checkbox:checked')).map(cb => cb.value);
+                
+                if (selectedStatuses.length === 0) {
+                    filteredNeeds = [];
+                } else {
+                    filteredNeeds = sampleNeeds.filter(need => selectedStatuses.includes(need.status));
+                }
+                
+                currentPage = 1;
+                renderNeedsList();
+                updatePagination();
+            }
+
+            // Pagination
+            function updatePagination() {
+                const totalPages = Math.ceil(filteredNeeds.length / itemsPerPage);
+                
+                pageInfo.textContent = `Página ${currentPage} de ${totalPages || 1}`;
+                prevPageButton.disabled = currentPage === 1;
+                nextPageButton.disabled = currentPage === totalPages || totalPages === 0;
+            }
+
+            prevPageButton.addEventListener('click', function() {
+                if (currentPage > 1) {
+                    currentPage--;
+                    renderNeedsList();
+                    updatePagination();
+                }
+            });
+
+            nextPageButton.addEventListener('click', function() {
+                const totalPages = Math.ceil(filteredNeeds.length / itemsPerPage);
+                
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    renderNeedsList();
+                    updatePagination();
+                }
+            });
+
+            // Modal functionality
+            function openNeedModal(need) {
+                document.getElementById('modalTitle').textContent = need.title;
+                document.getElementById('modalDescription').textContent = need.description;
+                document.getElementById('modalDate').textContent = need.date;
+                document.getElementById('modalDeadline').textContent = need.deadline;
+                
+                // Status with appropriate styling
+                const statusElement = document.getElementById('modalStatus');
+                statusElement.textContent = getStatusText(need.status);
+                statusElement.className = 'inline-block px-3 py-1 rounded-full text-sm font-medium ' + 
+                    (need.status === 'pendente' ? 'status-pendente' : 
+                     need.status === 'andamento' ? 'status-andamento' : 'status-atendida');
+                
+                document.getElementById('modalRating').textContent = need.rating;
+                
+                // Show report if available
+                if (need.status === 'atendida' && need.report) {
+                    document.getElementById('modalReportContainer').classList.remove('hidden');
+                    document.getElementById('modalReport').textContent = need.report;
+                } else {
+                    document.getElementById('modalReportContainer').classList.add('hidden');
+                }
+                
+                needModal.classList.remove('hidden');
+            }
+
+            closeModal.addEventListener('click', function() {
+                needModal.classList.add('hidden');
+            });
+
+            // Render needs list
+            function renderNeedsList() {
+                needsList.innerHTML = '';
+                
+                const startIndex = (currentPage - 1) * itemsPerPage;
+                const endIndex = startIndex + itemsPerPage;
+                const paginatedNeeds = filteredNeeds.slice(startIndex, endIndex);
+                
+                if (paginatedNeeds.length === 0) {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td colspan="5" class="px-6 py-4 text-center text-gray-500">
+                            Nenhuma necessidade encontrada com os filtros atuais.
+                        </td>
+                    `;
+                    needsList.appendChild(row);
+                    return;
+                }
+                
+                paginatedNeeds.forEach(need => {
+                    const row = document.createElement('tr');
+                    row.className = 'hover:bg-gray-50';
+                    row.innerHTML = `
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="font-medium text-gray-900">${need.title}</div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-gray-500">${need.date}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-gray-500">${need.deadline}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <span class="${getStatusClass(need.status)}">${getStatusText(need.status)}</span>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                            <button class="text-blue-600 hover:text-blue-900 view-detail" data-id="${need.id}">Detalhes</button>
+                        </td>
+                    `;
+                    needsList.appendChild(row);
+                });
+                
+                // Add event listeners to detail buttons
+                document.querySelectorAll('.view-detail').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const needId = parseInt(this.getAttribute('data-id'));
+                        const need = sampleNeeds.find(n => n.id === needId);
+                        if (need) {
+                            openNeedModal(need);
+                        }
+                    });
+                });
+            }
+
+            function getStatusText(status) {
+                return {
+                    'pendente': 'Pendente',
+                    'andamento': 'Em andamento',
+                    'atendida': 'Atendida'
+                }[status] || status;
+            }
+
+            function getStatusClass(status) {
+                return {
+                    'pendente': 'status-pendente inline-flex px-3 py-1 rounded-full text-sm font-medium',
+                    'andamento': 'status-andamento inline-flex px-3 py-1 rounded-full text-sm font-medium',
+                    'atendida': 'status-atendida inline-flex px-3 py-1 rounded-full text-sm font-medium'
+                }[status] || 'bg-gray-100 text-gray-800 inline-flex px-3 py-1 rounded-full text-sm font-medium';
+            }
+
+            // Initial setup
+            applyFilters();
+            renderNeedsList();
+            updatePagination();
+        });
+        // Alterna menu mobile
+    document.getElementById('menu-button').addEventListener('click', function () {
+        document.getElementById('mobile-menu').classList.toggle('hidden');
+    });
+
+    // Destaque do link ativo (hover fixo)
+    document.addEventListener('DOMContentLoaded', function () {
+        const links = document.querySelectorAll('.nav-link');
+        const currentPage = window.location.pathname.split('/').pop(); // pega o nome do arquivo atual
+
+        links.forEach(link => {
+            const href = link.getAttribute('href');
+            if (href === currentPage) {
+                // Aplica estilo hover fixo no link ativo
+                link.classList.add('text-cyan-600', 'font-semibold');
+                link.classList.remove('text-gray-600');
+            } else {
+                // Links não ativos ficam cinza com hover cyan
+                link.classList.add('text-gray-600', 'hover:text-cyan-600');
+                link.classList.remove('text-cyan-600', 'font-semibold');
+            }
+        });
+    });
+    </script>
+    <!-- Footer Simples -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <div class="flex items-center">
+                        <i class="fas fa-tint text-cyan-400 text-2xl mr-2"></i>
+                        <span class="text-xl font-bold">Gotabyte</span>
+                    </div>
+                    <p class="text-gray-400 mt-2">Us for water, water for us</p>
+                </div>
+                
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-white">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+                <p>© 2023 Gotabyte. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

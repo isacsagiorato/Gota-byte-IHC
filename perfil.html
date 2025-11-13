@@ -1,0 +1,147 @@
+  <!DOCTYPE html>
+  <html lang="pt-BR">
+  <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Página de Login</title>
+      <script src="https://cdn.tailwindcss.com"></script>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+      <style>
+          .faq-item {
+              transition: all 0.3s ease;
+          }
+          .faq-answer {
+              max-height: 0;
+              overflow: hidden;
+              transition: max-height 0.3s ease;
+          }
+          .faq-item.active .faq-answer {
+              max-height: 300px;
+          }
+          .faq-item.active .faq-toggle {
+              transform: rotate(180deg);
+          }
+      </style>
+  </head>
+
+  <body class="bg-gray-50 font-sans min-h-screen flex flex-col">
+      
+      <!-- ✅ NAVBAR RESPONSIVA -->
+      <nav class="bg-white shadow-sm py-4">
+          <div class="container mx-auto px-4 flex justify-between items-center">
+              <div class="flex items-center">
+                  <i class="fas fa-tint text-cyan-500 text-2xl mr-2"></i>
+                  <span class="text-xl font-bold">Gotabyte</span>
+              </div>
+
+              <!-- Botão hamburguer (mobile) -->
+              <button class="md:hidden text-2xl text-gray-600" id="menu-button">
+                  <i class="fas fa-bars"></i>
+              </button>
+
+              <!-- Menu desktop -->
+            <div class="hidden md:flex space-x-4 items-center flex-wrap">
+              <a href="paginain.html" class="nav-link">Home</a>
+              <a href="feed.html" class="nav-link">Feedback</a>
+              <a href="ajuda.html" class="nav-link">Ajuda</a>
+              <a href="relatorio.html" class="nav-link">Historico</a>
+              <a href="dicas.html" class="nav-link">Dicas</a>
+              
+              <a href="modo.html" class="block nav-link">Alerta</a>
+              <a href="necessidades.html" class="nav-link">Forum</a>
+            
+              <a href="perfil.html" class="nav-link"><i class="fas fa-user mr-1"></i> Perfil</a>
+              <a href="entrar.html" class="nav-link"><i class="fas fa-sign-in-alt mr-1"></i> Login</a>
+              <a href="login.html" class="bg-cyan-600 text-white px-4 py-2 rounded hover:bg-cyan-700">
+                  <i class="fas fa-user-plus mr-1"></i> Cadastro
+              </a>
+          </div>
+      </div>
+      <div id="mobile-menu" class="md:hidden hidden px-4 mt-2 space-y-2">
+          <a href="paginain.html" class="block nav-link">Home</a>
+          <a href="feed.html" class="block nav-link">Feedback</a>
+          <a href="ajuda.html" class="block nav-link">Ajuda</a>
+          <a href="relatorio.html" class="block nav-link">Historico</a>
+          <a href="dicas.html" class="block nav-link">Dicas</a>
+          
+          <a href="modo.html" class="block nav-link">Alerta</a>
+          <a href="necessidades.html" class="block nav-link">Forum</a>
+          
+          <a href="perfil.html" class="block nav-link">Perfil</a>
+          <a href="entrar.html" class="block nav-link">Login</a>
+          <a href="login.html" class="block bg-cyan-600 text-white px-4 py-2 rounded hover:bg-cyan-700">Cadastro</a>
+      </div>
+      </nav>
+
+
+    <main class="flex-grow flex items-center justify-center">
+      <div class="text-center px-4">
+        <h1 class="text-4xl md:text-5xl font-medium mb-12">Selecione um perfil?</h1>
+
+        <!-- Somente botão de adicionar perfil -->
+        <div class="flex flex-wrap justify-center gap-6 max-w-4xl mx-auto" id="profiles-container">
+          <div class="w-32 flex flex-col items-center cursor-pointer" id="add-profile-btn">
+            <div class="w-24 h-24 bg-gray-700 rounded-md flex items-center justify-center">
+    <i class="fas fa-user text-3xl text-white-400"></i>
+  </div>
+
+            <span class="text-gray-400">Adicionar perfil</span>
+          </div>
+        </div>
+
+        <button class="mt-16 px-8 py-2 border border-gray-600 text-gray-400 hover:text-white hover:border-white transition">
+          Gerenciar perfis
+        </button>
+      </div>
+    </main>
+
+    <!-- Modal para adicionar perfil -->
+    <div class="modal fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center opacity-0 pointer-events-none z-50" id="add-profile-modal">
+      <div class="modal-content bg-[#333] rounded-md p-8 w-full max-w-md">
+        <h2 class="text-2xl font-medium mb-6">Adicionar perfil</h2>
+        <div class="mb-6">
+          <div class="flex justify-center mb-4">
+            <div class="w-24 h-24 bg-gray-700 rounded-md flex items-center justify-center">
+              <i class="fas fa-user text-3xl text-gray-400"></i>
+            </div>
+          </div>
+          <input type="text" id="profile-name" placeholder="Nome" class="w-full bg-gray-700 px-4 py-3 rounded text-white placeholder-gray-400">
+        </div>
+        <div class="flex justify-end space-x-3">
+          <button class="px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-500 transition" id="cancel-add-profile">
+            Cancelar
+          </button>
+          <button class="px-4 py-2 bg-white text-black rounded hover:bg-gray-200 transition" id="confirm-add-profile">
+            Continuar
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script src="perfil.js"></script>
+  <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <div class="flex items-center">
+                        <i class="fas fa-tint text-cyan-400 text-2xl mr-2"></i>
+                        <span class="text-xl font-bold">Gotabyte</span>
+                    </div>
+                    <p class="text-gray-400 mt-2">Us for water, water for us</p>
+                </div>
+                
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+                <p>© 2023 Gotabyte. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+  </body>
+  </html>

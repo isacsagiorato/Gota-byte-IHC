@@ -1,0 +1,20 @@
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #1b6fc4;
+        }
+        .login-card {
+            box-shadow: 0 10px 25px -5px rgba(255, 255, 255, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .btn-pf {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+        }
+        .btn-pref {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        }
+        .btn-pf:hover, .btn-pref:hover {
+            transform: translateY(-2px);
+        }
+        .btn-pf:active, .btn-pref:active {
+            transform: translateY(0);
+        }

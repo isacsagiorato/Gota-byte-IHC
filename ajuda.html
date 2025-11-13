@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Página de Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        .faq-item {
+            transition: all 0.3s ease;
+        }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        .faq-item.active .faq-answer {
+            max-height: 300px;
+        }
+        .faq-item.active .faq-toggle {
+            transform: rotate(180deg);
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 font-sans">
+
+    <!-- ✅ NAVBAR RESPONSIVA -->
+    <nav class="bg-white shadow-sm py-4">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <div class="flex items-center">
+                <i class="fas fa-tint text-cyan-500 text-2xl mr-2"></i>
+                <span class="text-xl font-bold">Gotabyte</span>
+            </div>
+
+            <!-- Botão hamburguer (mobile) -->
+            <button class="md:hidden text-2xl text-gray-600" id="menu-button">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <!-- Menu desktop -->
+          <div class="hidden md:flex space-x-4 items-center flex-wrap">
+            <a href="paginain.html" class="nav-link">Home</a>
+            <a href="feed.html" class="nav-link">Feedback</a>
+            <a href="ajuda.html" class="nav-link">Ajuda</a>
+            <a href="relatorio.html" class="nav-link">Historico</a>
+            <a href="dicas.html" class="nav-link">Dicas</a>
+            
+            <a href="modo.html" class="block nav-link">Alerta</a>
+            <a href="necessidades.html" class="nav-link">Forum</a>
+           
+            <a href="perfil.html" class="nav-link"><i class="fas fa-user mr-1"></i> Perfil</a>
+            <a href="entrar.html" class="nav-link"><i class="fas fa-sign-in-alt mr-1"></i> Login</a>
+            <a href="login.html" class="bg-cyan-600 text-white px-4 py-2 rounded hover:bg-cyan-700">
+                <i class="fas fa-user-plus mr-1"></i> Cadastro
+            </a>
+        </div>
+    </div>
+    <div id="mobile-menu" class="md:hidden hidden px-4 mt-2 space-y-2">
+        <a href="paginain.html" class="block nav-link">Home</a>
+        <a href="feed.html" class="block nav-link">Feedback</a>
+        <a href="ajuda.html" class="block nav-link">Ajuda</a>
+        <a href="relatorio.html" class="block nav-link">Historico</a>
+        <a href="dicas.html" class="block nav-link">Dicas</a>
+        
+        <a href="modo.html" class="block nav-link">Alerta</a>
+        <a href="necessidades.html" class="block nav-link">Forum</a>
+        
+        <a href="perfil.html" class="block nav-link">Perfil</a>
+        <a href="entrar.html" class="block nav-link">Login</a>
+        <a href="login.html" class="block bg-cyan-600 text-white px-4 py-2 rounded hover:bg-cyan-700">Cadastro</a>
+    </div>
+    </nav>
+
+    <!-- ✅ CONTEÚDO -->
+    <div class="container mx-auto px-4 py-12 max-w-6xl">
+        <!-- Header Section -->
+        <div class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-indigo-800 mb-4">Canais de Contato</h1>
+            <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                Estamos aqui para ajudar você. Encontre respostas rápidas ou entre em contato com nosso time de suporte.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- FAQ Section -->
+            <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                <div class="bg-indigo-700 p-6">
+                    <div class="flex items-center">
+                        <i class="fas fa-question-circle text-white text-2xl mr-3"></i>
+                        <h2 class="text-2xl font-semibold text-white">Perguntas Frequentes</h2>
+                    </div>
+                    <p class="text-indigo-100 mt-2">Encontre respostas para as dúvidas mais comuns</p>
+                </div>
+                <div class="p-6">
+                    <div class="space-y-4">
+                        <!-- FAQ Items -->
+                        <div class="faq-item border-b border-gray-200 pb-4">
+                            <div class="flex justify-between items-center cursor-pointer group" onclick="toggleFAQ(this)">
+                                <h3 class="font-medium text-gray-800 group-hover:text-indigo-600">Como faço para criar uma conta?</h3>
+                                <i class="fas fa-chevron-down faq-toggle text-gray-500 transition-transform"></i>
+                            </div>
+                            <div class="faq-answer mt-2 text-gray-600">
+                                <p>Para criar uma conta, clique em "Registrar" no canto superior direito do site. Preencha o formulário com seus dados pessoais e siga as instruções enviadas para seu e-mail para confirmar sua conta.</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item border-b border-gray-200 pb-4">
+                            <div class="flex justify-between items-center cursor-pointer group" onclick="toggleFAQ(this)">
+                                <h3 class="font-medium text-gray-800 group-hover:text-indigo-600">Esqueci minha senha, o que fazer?</h3>
+                                <i class="fas fa-chevron-down faq-toggle text-gray-500 transition-transform"></i>
+                            </div>
+                            <div class="faq-answer mt-2 text-gray-600">
+                                <p>Na página de login, clique em "Esqueci minha senha". Você receberá um e-mail com um link para redefinir sua senha.</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item border-b border-gray-200 pb-4">
+                            <div class="flex justify-between items-center cursor-pointer group" onclick="toggleFAQ(this)">
+                                <h3 class="font-medium text-gray-800 group-hover:text-indigo-600">Quais são os métodos de pagamento aceitos?</h3>
+                                <i class="fas fa-chevron-down faq-toggle text-gray-500 transition-transform"></i>
+                            </div>
+                            <div class="faq-answer mt-2 text-gray-600">
+                                <p>Aceitamos cartões de crédito, Pix, boleto bancário e transferência bancária.</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item border-b border-gray-200 pb-4">
+                            <div class="flex justify-between items-center cursor-pointer group" onclick="toggleFAQ(this)">
+                                <h3 class="font-medium text-gray-800 group-hover:text-indigo-600">Como posso cancelar minha assinatura?</h3>
+                                <i class="fas fa-chevron-down faq-toggle text-gray-500 transition-transform"></i>
+                            </div>
+                            <div class="faq-answer mt-2 text-gray-600">
+                                <p>Acesse "Minha Conta" > "Assinaturas" e clique em "Cancelar Assinatura".</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Suporte Section -->
+            <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                <div class="bg-indigo-600 p-6">
+                    <div class="flex items-center">
+                        <i class="fas fa-headset text-white text-2xl mr-3"></i>
+                        <h2 class="text-2xl font-semibold text-white">Suporte/Ajuda no Site</h2>
+                    </div>
+                    <p class="text-indigo-100 mt-2">Precisa de ajuda adicional? Entre em contato conosco</p>
+                </div>
+                <div class="p-6 space-y-6">
+                    <!-- Contact Options -->
+                    <div class="flex items-start">
+                        <div class="bg-indigo-100 p-3 rounded-full mr-4">
+                            <i class="fas fa-envelope text-indigo-600 text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-medium text-gray-800">E-mail de Suporte</h3>
+                            <p class="text-gray-600 mt-1">suporte@exemplo.com</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start">
+                        <div class="bg-indigo-100 p-3 rounded-full mr-4">
+                            <i class="fas fa-phone-alt text-indigo-600 text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-medium text-gray-800">Telefone</h3>
+                            <p class="text-gray-600 mt-1">(19) 4002-8922</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ✅ SCRIPTS -->
+    <script>
+        // Menu responsivo
+        document.getElementById('menu-button').addEventListener('click', function () {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+
+        // Abrir primeiro FAQ
+        document.addEventListener('DOMContentLoaded', function () {
+            const firstFaq = document.querySelector('.faq-item');
+            if (firstFaq) firstFaq.classList.add('active');
+
+            // Destaque do link atual
+            const links = document.querySelectorAll('.nav-link');
+            const currentPage = window.location.pathname.split('/').pop();
+
+            links.forEach(link => {
+                const href = link.getAttribute('href');
+                if (href === currentPage) {
+                    link.classList.add('text-cyan-600', 'font-semibold');
+                } else {
+                    link.classList.add('text-gray-600', 'hover:text-cyan-600');
+                }
+            });
+        });
+
+        // Expandir FAQ
+        function toggleFAQ(element) {
+            const faqItem = element.closest('.faq-item');
+            faqItem.classList.toggle('active');
+
+            const container = faqItem.parentElement;
+            container.querySelectorAll('.faq-item').forEach(item => {
+                if (item !== faqItem) {
+                    item.classList.remove('active');
+                }
+            });
+        }
+        // Alterna menu mobile
+    document.getElementById('menu-button').addEventListener('click', function () {
+        document.getElementById('mobile-menu').classList.toggle('hidden');
+    });
+
+    // Destaque do link ativo (hover fixo)
+    document.addEventListener('DOMContentLoaded', function () {
+        const links = document.querySelectorAll('.nav-link');
+        const currentPage = window.location.pathname.split('/').pop(); // pega o nome do arquivo atual
+
+        links.forEach(link => {
+            const href = link.getAttribute('href');
+            if (href === currentPage) {
+                // Aplica estilo hover fixo no link ativo
+                link.classList.add('text-cyan-600', 'font-semibold');
+                link.classList.remove('text-gray-600');
+            } else {
+                // Links não ativos ficam cinza com hover cyan
+                link.classList.add('text-gray-600', 'hover:text-cyan-600');
+                link.classList.remove('text-cyan-600', 'font-semibold');
+            }
+        });
+    });
+    </script>
+    <!-- Footer Simples -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <div class="flex items-center">
+                        <i class="fas fa-tint text-cyan-400 text-2xl mr-2"></i>
+                        <span class="text-xl font-bold">Gotabyte</span>
+                    </div>
+                    <p class="text-gray-400 mt-2">Us for water, water for us</p>
+                </div>
+                
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-white">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+                <p>© 2023 Gotabyte. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

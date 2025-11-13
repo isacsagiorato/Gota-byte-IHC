@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Página de Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        .faq-item {
+            transition: all 0.3s ease;
+        }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        .faq-item.active .faq-answer {
+            max-height: 300px;
+        }
+        .faq-item.active .faq-toggle {
+            transform: rotate(180deg);
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 font-sans">
+    
+    <!-- ✅ NAVBAR RESPONSIVA -->
+    <!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Página de Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        .faq-item {
+            transition: all 0.3s ease;
+        }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        .faq-item.active .faq-answer {
+            max-height: 300px;
+        }
+        .faq-item.active .faq-toggle {
+            transform: rotate(180deg);
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 font-sans">
+    
+    <!-- ✅ NAVBAR RESPONSIVA -->
+    <nav class="bg-white shadow-sm py-4">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <div class="flex items-center">
+                <i class="fas fa-tint text-cyan-500 text-2xl mr-2"></i>
+                <span class="text-xl font-bold">Gotabyte</span>
+            </div>
+
+            <!-- Botão hamburguer (mobile) -->
+            <button class="md:hidden text-2xl text-gray-600" id="menu-button">
+                <i class="fas fa-bars"></i>
+            </button>
+
+        <div class="hidden md:flex space-x-4 items-center flex-wrap">
+            <a href="paginain.html" class="nav-link">Home</a>
+            <a href="feed.html" class="nav-link">Feedback</a>
+            <a href="ajuda.html" class="nav-link">Ajuda</a>
+            <a href="relatorio.html" class="nav-link">Historico</a>
+            <a href="dicas.html" class="nav-link">Dicas</a>
+            
+            <a href="modo.html" class="block nav-link">Alerta</a>
+            <a href="necessidades.html" class="nav-link">Forum</a>
+           
+            <a href="perfil.html" class="nav-link"><i class="fas fa-user mr-1"></i> Perfil</a>
+            <a href="entrar.html" class="nav-link"><i class="fas fa-sign-in-alt mr-1"></i> Login</a>
+            <a href="login.html" class="bg-cyan-600 text-white px-4 py-2 rounded hover:bg-cyan-700">
+                <i class="fas fa-user-plus mr-1"></i> Cadastro
+            </a>
+        </div>
+    </div>
+    <div id="mobile-menu" class="md:hidden hidden px-4 mt-2 space-y-2">
+        <a href="paginain.html" class="block nav-link">Home</a>
+        <a href="feed.html" class="block nav-link">Feedback</a>
+        <a href="ajuda.html" class="block nav-link">Ajuda</a>
+        <a href="relatorio.html" class="block nav-link">Historico</a>
+        <a href="dicas.html" class="block nav-link">Dicas</a>
+        
+        <a href="modo.html" class="block nav-link">Alerta</a>
+        <a href="necessidades.html" class="block nav-link">Forum</a>
+        
+        <a href="perfil.html" class="block nav-link">Perfil</a>
+        <a href="entrar.html" class="block nav-link">Login</a>
+        <a href="login.html" class="block bg-cyan-600 text-white px-4 py-2 rounded hover:bg-cyan-700">Cadastro</a>
+    </div>
+    </nav>
+
+</head>
+    <style>
+        .water-drop {
+            position: relative;
+            animation: drip 3s infinite ease-in-out;
+        }
+        
+        @keyframes drip {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(10px); }
+        }
+        
+        .tip-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 119, 182, 0.2);
+        }
+        
+        .water-counter {
+            background: linear-gradient(135deg, #00b4db, #0083b0);
+        }
+    </style>
+</head>
+<body class="bg-blue-50 min-h-screen">
+    <div class="container mx-auto px-4 py-12">
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <div class="flex justify-center items-center mb-4">
+                <i class="fas fa-tint text-blue-500 text-5xl mr-3 water-drop"></i>
+                <h1 class="text-4xl font-bold text-blue-800">Economize Água</h1>
+            </div>
+            <p class="text-lg text-blue-600 max-w-2xl mx-auto">
+                Pequenas mudanças fazem uma grande diferença! Confira nossas dicas para reduzir o consumo de água no seu dia a dia.
+            </p>
+        </header>
+        
+        <!-- Water Counter -->
+        <div class="water-counter rounded-xl p-6 mb-12 text-white shadow-lg">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <h2 class="text-2xl font-bold">Seu consumo hoje</h2>
+                    <p class="opacity-90">Quantos litros você já economizou?</p>
+                </div>
+                <div class="flex items-center">
+                    <div class="text-4xl font-bold mr-4" id="waterCounter">0</div>
+                    <span class="text-xl">litros</span>
+                </div>
+            </div>
+            <div class="mt-4 w-full bg-blue-200 rounded-full h-4">
+                <div id="waterProgress" class="bg-white h-4 rounded-full" style="width: 0%"></div>
+            </div>
+        </div>
+        
+        <!-- Tips Section -->
+        <section class="mb-12">
+            <h2 class="text-3xl font-bold text-blue-800 mb-8 text-center">Dicas para Economizar Água</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Tip 1 -->
+                <div class="tip-card bg-white rounded-xl p-6 shadow-md transition-all duration-300">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-blue-100 p-3 rounded-full mr-4">
+                            <i class="fas fa-shower text-blue-600 text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-blue-800">Banhos mais curtos</h3>
+                    </div>
+                    <p class="text-gray-600 mb-4">Reduza seu banho em 5 minutos pode economizar até 70 litros de água por banho!</p>
+                    <button onclick="addToCounter(70)" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors">
+                        Economizei hoje
+                    </button>
+                </div>
+                
+                <!-- Tip 2 -->
+                <div class="tip-card bg-white rounded-xl p-6 shadow-md transition-all duration-300">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-blue-100 p-3 rounded-full mr-4">
+                            <i class="fas fa-tooth text-blue-600 text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-blue-800">Escovar os dentes</h3>
+                    </div>
+                    <p class="text-gray-600 mb-4">Feche a torneira enquanto escova os dentes e economize até 12 litros por minuto.</p>
+                    <button onclick="addToCounter(12)" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors">
+                        Economizei hoje
+                    </button>
+                </div>
+                
+                <!-- Tip 3 -->
+                <div class="tip-card bg-white rounded-xl p-6 shadow-md transition-all duration-300">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-blue-100 p-3 rounded-full mr-4">
+                            <i class="fas fa-car text-blue-600 text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-blue-800">Lavar o carro</h3>
+                    </div>
+                    <p class="text-gray-600 mb-4">Use balde em vez de mangueira para lavar o carro e economize até 300 litros.</p>
+                    <button onclick="addToCounter(300)" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors">
+                        Economizei hoje
+                    </button>
+                </div>
+                
+                <!-- Tip 4 -->
+                <div class="tip-card bg-white rounded-xl p-6 shadow-md transition-all duration-300">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-blue-100 p-3 rounded-full mr-4">
+                            <i class="fas fa-utensils text-blue-600 text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-blue-800">Lavar louça</h3>
+                    </div>
+                    <p class="text-gray-600 mb-4">Encha a pia para ensaboar e economize até 100 litros por lavagem.</p>
+                    <button onclick="addToCounter(100)" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors">
+                        Economizei hoje
+                    </button>
+                </div>
+                
+                <!-- Tip 5 -->
+                <div class="tip-card bg-white rounded-xl p-6 shadow-md transition-all duration-300">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-blue-100 p-3 rounded-full mr-4">
+                            <i class="fas fa-leaf text-blue-600 text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-blue-800">Regar plantas</h3>
+                    </div>
+                    <p class="text-gray-600 mb-4">Regue de manhã cedo ou à noite para reduzir evaporação, economizando 30% de água.</p>
+                    <button onclick="addToCounter(30)" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors">
+                        Economizei hoje
+                    </button>
+                </div>
+                
+                <!-- Tip 6 -->
+                <div class="tip-card bg-white rounded-xl p-6 shadow-md transition-all duration-300">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-blue-100 p-3 rounded-full mr-4">
+                            <i class="fas fa-tint-slash text-blue-600 text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-blue-800">Vazamentos</h3>
+                    </div>
+                    <p class="text-gray-600 mb-4">Um buraco de 2mm em um cano desperdiça até 3.200 litros por dia. Conserte vazamentos!</p>
+                    <button onclick="addToCounter(3200)" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors">
+                        Consertei um vazamento
+                    </button>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Water Facts -->
+        <section class="bg-white rounded-xl p-8 shadow-md">
+            <h2 class="text-3xl font-bold text-blue-800 mb-6 text-center">Você sabia?</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="flex items-start">
+                    <i class="fas fa-info-circle text-blue-500 text-2xl mr-4 mt-1"></i>
+                    <div>
+                        <h3 class="text-xl font-semibold text-blue-700 mb-2">Consumo médio</h3>
+                        <p class="text-gray-600">Um brasileiro consome em média 154 litros de água por dia, mas a ONU recomenda apenas 110 litros.</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-start">
+                    <i class="fas fa-globe-americas text-blue-500 text-2xl mr-4 mt-1"></i>
+                    <div>
+                        <h3 class="text-xl font-semibold text-blue-700 mb-2">Disponibilidade</h3>
+                        <p class="text-gray-600">Apenas 0,26% da água do planeta é potável e disponível para consumo humano.</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-start">
+                    <i class="fas fa-home text-blue-500 text-2xl mr-4 mt-1"></i>
+                    <div>
+                        <h3 class="text-xl font-semibold text-blue-700 mb-2">Uso residencial</h3>
+                        <p class="text-gray-600">No Brasil, o consumo doméstico representa cerca de 10% do total de água consumida no país.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Call to Action -->
+      
+        </div>
+    </div>
+
+    <script>
+        let totalSaved = 0;
+        const goal = 5000; // Meta de 5000 litros
+        
+        function addToCounter(liters) {
+            totalSaved += liters;
+            document.getElementById('waterCounter').textContent = totalSaved;
+            
+            const percentage = Math.min((totalSaved / goal) * 100, 100);
+            document.getElementById('waterProgress').style.width = percentage + '%';
+            
+            // Feedback visual
+            if(totalSaved > 0) {
+                const counterElement = document.getElementById('waterCounter');
+                counterElement.classList.add('animate-pulse');
+                setTimeout(() => {
+                    counterElement.classList.remove('animate-pulse');
+                }, 300);
+            }
+            
+            // Mostrar confetes quando atingir a meta
+            if(totalSaved >= goal && totalSaved - liters < goal) {
+                showConfetti();
+            }
+        }
+        
+        function showConfetti() {
+            // Simples efeito de confete com emojis
+            const confettiContainer = document.createElement('div');
+            confettiContainer.style.position = 'fixed';
+            confettiContainer.style.top = '0';
+            confettiContainer.style.left = '0';
+            confettiContainer.style.width = '100%';
+            confettiContainer.style.height = '100%';
+            confettiContainer.style.pointerEvents = 'none';
+            confettiContainer.style.zIndex = '1000';
+            document.body.appendChild(confettiContainer);
+            
+            const emojis = ['💧', '🌎', '👍', '💙'];
+            for(let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                confetti.style.position = 'absolute';
+                confetti.style.fontSize = (20 + Math.random() * 20) + 'px';
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.top = '-50px';
+                confetti.style.opacity = '0.8';
+                confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
+                confetti.style.animation = `fall ${2 + Math.random() * 3}s linear forwards`;
+                
+                confettiContainer.appendChild(confetti);
+                
+                // Criar estilo para a animação de queda
+                const style = document.createElement('style');
+                style.textContent = `
+                    @keyframes fall {
+                        to {
+                            transform: translateY(100vh) rotate(${360 + Math.random() * 360}deg);
+                        }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+            
+            setTimeout(() => {
+                document.body.removeChild(confettiContainer);
+            }, 3000);
+        }
+          document.addEventListener('DOMContentLoaded', function () {
+        const links = document.querySelectorAll('.nav-link');
+        const currentPage = window.location.pathname.split('/').pop();
+
+        links.forEach(link => {
+            const href = link.getAttribute('href');
+            if (href === currentPage) {
+                link.classList.add('text-cyan-600', 'font-semibold');
+            } else {
+                link.classList.add('text-gray-600', 'hover:text-cyan-600');
+            }
+        });
+    });
+    // Toggle menu mobile
+        document.getElementById('menu-button').addEventListener('click', function () {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+
+        // Abrir primeiro item do FAQ
+        document.addEventListener('DOMContentLoaded', function () {
+            const firstFaq = document.querySelector('.faq-item');
+            if (firstFaq) firstFaq.classList.add('active');
+
+            // Destacar link atual
+            const links = document.querySelectorAll('.nav-link');
+            const currentPage = window.location.pathname.split('/').pop();
+
+            links.forEach(link => {
+                const href = link.getAttribute('href');
+                if (href === currentPage) {
+                    link.classList.add('text-cyan-600', 'font-semibold');
+                } else {
+                    link.classList.add('text-gray-600', 'hover:text-cyan-600');
+                }
+            });
+        });
+
+        // FAQ toggle
+        function toggleFAQ(element) {
+            const faqItem = element.closest('.faq-item');
+            faqItem.classList.toggle('active');
+
+            const container = faqItem.parentElement;
+            container.querySelectorAll('.faq-item').forEach(item => {
+                if (item !== faqItem) {
+                    item.classList.remove('active');
+                }
+            });
+        }
+        // Alterna menu mobile
+    document.getElementById('menu-button').addEventListener('click', function () {
+        document.getElementById('mobile-menu').classList.toggle('hidden');
+    });
+
+    // Destaque do link ativo (hover fixo)
+    document.addEventListener('DOMContentLoaded', function () {
+        const links = document.querySelectorAll('.nav-link');
+        const currentPage = window.location.pathname.split('/').pop(); // pega o nome do arquivo atual
+
+        links.forEach(link => {
+            const href = link.getAttribute('href');
+            if (href === currentPage) {
+                // Aplica estilo hover fixo no link ativo
+                link.classList.add('text-cyan-600', 'font-semibold');
+                link.classList.remove('text-gray-600');
+            } else {
+                // Links não ativos ficam cinza com hover cyan
+                link.classList.add('text-gray-600', 'hover:text-cyan-600');
+                link.classList.remove('text-cyan-600', 'font-semibold');
+            }
+        });
+    });
+    </script>
+    <!-- Footer Simples -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <div class="flex items-center">
+                        <i class="fas fa-tint text-cyan-400 text-2xl mr-2"></i>
+                        <span class="text-xl font-bold">Gotabyte</span>
+                    </div>
+                    <p class="text-gray-400 mt-2">Us for water, water for us</p>
+                </div>
+                
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-white">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+                <p>© 2023 Gotabyte. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

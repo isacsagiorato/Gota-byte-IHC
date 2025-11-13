@@ -1,0 +1,64 @@
+
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #ffffff;
+            color: #3b82f6;
+        }
+        
+        .profile-card {
+            transition: all 0.3s ease;
+            transform: scale(1);
+        }
+        
+        .profile-card:hover {
+            transform: scale(1.05);
+        }
+        
+        .profile-card:active {
+            transform: scale(0.98);
+        }
+        
+        .add-profile {
+            background-color: rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .add-profile:hover {
+            background-color: rgba(202, 202, 202, 0.2);
+        }
+        
+        .modal {
+            transition: opacity 0.3s ease;
+        }
+        
+        .modal-content {
+            transform: translateY(-20px);
+            transition: transform 0.3s ease;
+        }
+        
+        .modal.show {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .modal.show .modal-content {
+            transform: translateY(0);
+        }
+        
+        input:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px #e50914;
+        }
+   .delete-btn {
+  position: absolute;
+  top: 0.25rem; /* 4px */
+  right: 0.25rem;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1rem;
+  line-height: 1;
+  border: none;
+  outline: none;
+}

@@ -1,0 +1,7 @@
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .hero-bg {
+            background: linear-gradient(135deg, #04d9ff 0%, #0995d6 100%);
+        }

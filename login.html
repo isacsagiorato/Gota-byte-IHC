@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Usuário - GotaByte</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Custom styles for password strength indicator */
+        .password-strength {
+            height: 5px;
+            transition: all 0.3s ease;
+        }
+        .password-strength-0 { width: 20%; background-color: #ef4444; } /* Red */
+        .password-strength-1 { width: 40%; background-color: #f97316; } /* Orange */
+        .password-strength-2 { width: 60%; background-color: #eab308; } /* Yellow */
+        .password-strength-3 { width: 80%; background-color: #84cc16; } /* Light Green */
+        .password-strength-4 { width: 100%; background-color: #22c55e; } /* Green */
+
+        /* Styles for password toggle icon */
+        .toggle-password {
+            cursor: pointer;
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        /* Styles for input errors */
+        .input-error { border-color: #ef4444 !important; } /* Red border for errors */
+        .error-message { color: #ef4444; font-size: 0.875rem; margin-top: 0.25rem; } /* Red text for error messages */
+        .hidden { display: none; } /* Utility class to hide elements */
+
+        /* Body font and background */
+        body {
+            font-family: 'Inter', sans-serif; /* Using Inter font as per guidelines */
+            background-color: #f0f2f5; /* Light gray background */
+        }
+
+      
+    </style>
+</head>
+<!-- Body with flex column to push footer to the bottom -->
+<body class="bg-gray-50 font-sans min-h-screen flex flex-col">
+
+    <!-- Navbar Section -->
+    <nav class="bg-white shadow-sm py-4">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <!-- Logo and Site Name -->
+            <div class="flex items-center">
+                <i class="fas fa-tint text-cyan-500 text-2xl mr-2"></i>
+                <span class="text-xl font-bold">Gotabyte</span>
+            </div>
+            <!-- Mobile Menu Button -->
+            <button class="md:hidden text-2xl text-gray-600" id="menu-button">
+                <i class="fas fa-bars"></i>
+            </button>
+            <!-- Desktop Navigation Links -->
+            <div class="hidden md:flex space-x-4 items-center flex-wrap">
+                <a href="paginain.html" class="nav-link">Home</a>
+                <a href="feed.html" class="nav-link">Feedback</a>
+                <a href="ajuda.html" class="nav-link">Ajuda</a>
+                <a href="relatorio.html" class="nav-link">Histórico</a>
+                <a href="dicas.html" class="nav-link">Dicas</a>
+                <a href="modo.html" class="nav-link">Alerta</a>
+                <a href="necessidades.html" class="nav-link">Fórum</a>
+                <a href="perfil.html" class="nav-link"><i class="fas fa-user mr-1"></i> Perfil</a>
+                <a href="entrar.html" class="nav-link"><i class="fas fa-sign-in-alt mr-1"></i> Login</a>
+                <a href="login.html" class="bg-cyan-600 text-white px-4 py-2 rounded hover:bg-cyan-700">
+                    <i class="fas fa-user-plus mr-1"></i> Cadastro
+                </a>
+            </div>
+        </div>
+        <!-- Mobile Menu (hidden by default) -->
+        <div id="mobile-menu" class="md:hidden hidden px-4 mt-2 space-y-2">
+            <a href="paginain.html" class="block nav-link">Home</a>
+            <a href="feed.html" class="block nav-link">Feedback</a>
+            <a href="ajuda.html" class="block nav-link">Ajuda</a>
+            <a href="relatorio.html" class="block nav-link">Histórico</a>
+            <a href="dicas.html" class="block nav-link">Dicas</a>
+            <a href="modo.html" class="block nav-link">Alerta</a>
+            <a href="necessidades.html" class="block nav-link">Fórum</a>
+            <a href="perfil.html" class="block nav-link">Perfil</a>
+            <a href="entrar.html" class="block nav-link">Login</a>
+            <a href="login.html" class="block bg-cyan-600 text-white px-4 py-2 rounded hover:bg-cyan-700">Cadastro</a>
+        </div>
+    </nav>
+
+    <!-- Main Content Area - flex-1 ensures it takes available space, pushing footer down -->
+    <div class="flex-1">
+        <main class="flex items-center justify-center w-full px-4 py-8">
+            <div class="w-full max-w-4xl bg-white shadow-md rounded-xl p-8">
+                <!-- Form Header -->
+                <div class="bg-blue-600 py-4 px-6 mb-6 rounded-t-xl">
+                    <h1 class="text-2xl font-bold text-white">Cadastro de Usuário</h1>
+                    <p class="text-blue-100">Preencha os campos abaixo para criar sua conta na GotaByte</p>
+                </div>
+                
+                <!-- Registration Form -->
+                <form id="registrationForm" class="p-6 space-y-6">
+                    <!-- User Type Selection -->
+                    <div>
+                        <label class="block text-gray-700 font-medium mb-2">Tipo de Usuário *</label>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                            <div>
+                                <input type="radio" name="userType" id="pessoaFisica" value="Pessoa Física" class="hidden peer" checked>
+                                <label for="pessoaFisica" class="flex flex-col items-center justify-center p-4 border-2 border-gray-200 rounded-lg cursor-pointer peer-checked:border-blue-500 peer-checked:bg-blue-50 hover:bg-gray-50 transition-colors">
+                                    <i class="fas fa-user text-3xl text-blue-500 mb-2"></i>
+                                    <span class="font-medium">Pessoa Física</span>
+                                </label>
+                            </div>
+                            <div>
+                                <input type="radio" name="userType" id="pessoaJuridica" value="Pessoa Jurídica" class="hidden peer">
+                                <label for="pessoaJuridica" class="flex flex-col items-center justify-center p-4 border-2 border-gray-200 rounded-lg cursor-pointer peer-checked:border-blue-500 peer-checked:bg-blue-50 hover:bg-gray-50 transition-colors">
+                                    <i class="fas fa-building text-3xl text-blue-500 mb-2"></i>
+                                    <span class="font-medium">Pessoa Jurídica</span>
+                                </label>
+                            </div>
+                            <div>
+                                <input type="radio" name="userType" id="prefeitura" value="Prefeitura" class="hidden peer">
+                                <label for="prefeitura" class="flex flex-col items-center justify-center p-4 border-2 border-gray-200 rounded-lg cursor-pointer peer-checked:border-blue-500 peer-checked:bg-blue-50 hover:bg-gray-50 transition-colors">
+                                    <i class="fas fa-landmark text-3xl text-blue-500 mb-2"></i>
+                                    <span class="font-medium">Prefeitura</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Name/Razão Social -->
+                    <div>
+                        <label for="name" class="block text-gray-700 font-medium mb-2" id="nameLabel">Nome Completo *</label>
+                        <input type="text" id="name" name="name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition" placeholder="Digite seu nome completo">
+                        <p id="nameError" class="error-message hidden">Por favor, insira seu nome completo</p>
+                    </div>
+                    
+                    <!-- CPF/CNPJ -->
+                    <div>
+                        <label for="document" class="block text-gray-700 font-medium mb-2" id="documentLabel">CPF *</label>
+                        <input type="text" id="document" name="document" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition" placeholder="000.000.000-00">
+                        <p id="documentError" class="error-message hidden">Por favor, insira um CPF/CNPJ válido</p>
+                    </div>
+                    
+                    <!-- Email -->
+                    <div>
+                        <label for="email" class="block text-gray-700 font-medium mb-2">E-mail *</label>
+                        <input type="email" id="email" name="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition" placeholder="seu@email.com">
+                        <p id="emailError" class="error-message hidden">Por favor, insira um e-mail válido</p>
+                    </div>
+                    
+                    <!-- Número de Fornecimento (only for non-prefeitura) -->
+                    <div id="supplyNumberContainer">
+                        <label for="supplyNumber" class="block text-gray-700 font-medium mb-2">Número de Fornecimento *</label>
+                        <input type="text" id="supplyNumber" name="supplyNumber" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition" placeholder="12345678" maxlength="8">
+                        <p id="supplyNumberError" class="error-message hidden">Por favor, insira um número de fornecimento válido (8 dígitos)</p>
+                    </div>
+                    
+                    <!-- Password -->
+                    <div>
+                        <label for="password" class="block text-gray-700 font-medium mb-2">Senha *</label>
+                        <div class="relative">
+                            <input type="password" id="password" name="password" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition pr-10" placeholder="Crie uma senha segura">
+                            <span class="toggle-password" onclick="togglePassword('password')">
+                                <i class="far fa-eye text-gray-400"></i>
+                            </span>
+                        </div>
+                        <div class="password-strength mt-2 rounded-full password-strength-0" id="passwordStrength"></div>
+                        <p id="passwordError" class="error-message hidden">A senha deve ter pelo menos 8 caracteres, incluindo letras, números e um caractere especial</p>
+                        <div class="mt-2 text-sm text-gray-600">
+                            <p class="flex items-center"><i class="fas fa-info-circle mr-2 text-blue-500"></i> A senha deve conter:</p>
+                            <ul class="list-disc list-inside ml-4 mt-1">
+                                <li id="lengthReq" class="text-gray-500">Mínimo de 8 caracteres</li>
+                                <li id="numberReq" class="text-gray-500">Pelo menos 1 número</li>
+                                <li id="specialReq" class="text-gray-500">Pelo menos 1 caractere especial</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- Confirm Password -->
+                    <div>
+                        <label for="confirmPassword" class="block text-gray-700 font-medium mb-2">Confirmar Senha *</label>
+                        <div class="relative">
+                            <input type="password" id="confirmPassword" name="confirmPassword" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition pr-10" placeholder="Digite a senha novamente">
+                            <span class="toggle-password" onclick="togglePassword('confirmPassword')">
+                                <i class="far fa-eye text-gray-400"></i>
+                            </span>
+                        </div>
+                        <p id="confirmPasswordError" class="error-message hidden">As senhas não coincidem</p>
+                    </div>
+                    
+                    <!-- Phone Number -->
+                    <div>
+                        <label for="phone" class="block text-gray-700 font-medium mb-2">Número de Celular *</label>
+                        <input type="tel" id="phone" name="phone" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition" placeholder="(00) 00000-0000">
+                        <p id="phoneError" class="error-message hidden">Por favor, insira um número de celular válido</p>
+                    </div>
+                    
+                    <!-- Address -->
+                    <div>
+                        <label for="address" class="block text-gray-700 font-medium mb-2">Endereço *</label>
+                        <input type="text" id="address" name="address" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition" placeholder="Rua, número, complemento">
+                        <p id="addressError" class="error-message hidden">Por favor, insira seu endereço</p>
+                    </div>
+                    
+                    <!-- CEP Verification -->
+                    <div>
+                        <label for="cep" class="block text-gray-700 font-medium mb-2">CEP *</label>
+                        <div class="flex">
+                            <input type="text" id="cep" name="cep" class="flex-1 px-4 py-2 border border-gray-300 rounded-l-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition" placeholder="00000-000">
+                            <button type="button" id="searchCep" class="bg-blue-500 text-white px-4 py-2 rounded-r-lg hover:bg-blue-600 transition">Buscar</button>
+                        </div>
+                        <p id="cepError" class="error-message hidden">Por favor, insira um CEP válido</p>
+                        <div id="cepResult" class="mt-2 p-3 bg-blue-50 text-blue-800 rounded-lg hidden">
+                            <i class="fas fa-check-circle mr-2 text-blue-500"></i>
+                            <span id="cepResultText">Serviço disponível para sua região!</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Prefeitura Fields (hidden by default) -->
+                    <div id="prefeituraFields" class="hidden">
+                        <div class="border-t border-gray-200 pt-4 mt-4">
+                            <h3 class="text-lg font-medium text-gray-700 mb-4">Dados da Prefeitura</h3>
+                            
+                            <div class="mb-4">
+                                <label for="matricula" class="block text-gray-700 font-medium mb-2">Matrícula Funcional *</label>
+                                <input type="text" id="matricula" name="matricula" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition" placeholder="Sua matrícula única no órgão">
+                                <p id="matriculaError" class="error-message hidden">Por favor, insira sua matrícula funcional</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Submit Button -->
+                    <div class="pt-4">
+                        <button type="submit" class="w-full bg-blue-600 text-white py-3 px-4 rounded-lg font-medium hover:bg-blue-700 transition focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                            Criar Conta
+                        </button>
+                    </div>
+                    
+                    <div class="text-center text-sm text-gray-500">
+                        Já tem uma conta? <a href="#" class="text-blue-600 hover:underline">Faça login</a>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
+
+    <!-- Footer Section -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <!-- Logo and Tagline -->
+                <div class="mb-4 md:mb-0">
+                    <div class="flex items-center justify-center md:justify-start">
+                        <i class="fas fa-tint text-cyan-400 text-2xl mr-2"></i>
+                        <span class="text-xl font-bold">Gotabyte</span>
+                    </div>
+                    <p class="text-gray-400 mt-2 text-center md:text-left">Us for water, water for us</p>
+                </div>
+                
+                <!-- Social Media Links -->
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-300 ease-in-out" aria-label="Facebook">
+                        <i class="fab fa-facebook-f text-lg"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-300 ease-in-out" aria-label="Twitter">
+                        <i class="fab fa-twitter text-lg"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-300 ease-in-out" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin-in text-lg"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Copyright Information -->
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2025 Gotabyte. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // DOM Elements
+        const userTypeRadios = document.querySelectorAll('input[name="userType"]');
+        const nameLabel = document.getElementById('nameLabel');
+        const documentLabel = document.getElementById('documentLabel');
+        const supplyNumberContainer = document.getElementById('supplyNumberContainer');
+        const prefeituraFields = document.getElementById('prefeituraFields');
+        const form = document.getElementById('registrationForm');
+        
+        // Event Listeners
+        userTypeRadios.forEach(radio => {
+            radio.addEventListener('change', updateFormFields);
+        });
+        
+        document.getElementById('document').addEventListener('input', formatDocument);
+        document.getElementById('phone').addEventListener('input', formatPhone);
+        document.getElementById('cep').addEventListener('input', formatCEP);
+        document.getElementById('password').addEventListener('input', checkPasswordStrength);
+        document.getElementById('searchCep').addEventListener('click', searchCEP);
+        form.addEventListener('submit', validateForm);
+        
+        // Functions
+        function updateFormFields() {
+            const selectedType = document.querySelector('input[name="userType"]:checked').value;
+            
+            if (selectedType === 'Pessoa Física') {
+                nameLabel.textContent = 'Nome Completo *';
+                documentLabel.textContent = 'CPF *';
+                document.getElementById('document').placeholder = '000.000.000-00';
+                supplyNumberContainer.classList.remove('hidden');
+                prefeituraFields.classList.add('hidden');
+            } else if (selectedType === 'Pessoa Jurídica') {
+                nameLabel.textContent = 'Razão Social *';
+                documentLabel.textContent = 'CNPJ *';
+                document.getElementById('document').placeholder = '00.000.000/0000-00';
+                supplyNumberContainer.classList.remove('hidden');
+                prefeituraFields.classList.add('hidden');
+            } else if (selectedType === 'Prefeitura') {
+                nameLabel.textContent = 'Nome da Prefeitura *';
+                documentLabel.textContent = 'CNPJ *';
+                document.getElementById('document').placeholder = '00.000.000/0000-00';
+                supplyNumberContainer.classList.add('hidden');
+                prefeituraFields.classList.remove('hidden');
+            }
+        }
+        
+        function formatDocument(e) {
+            const input = e.target;
+            const value = input.value.replace(/\D/g, '');
+            const selectedType = document.querySelector('input[name="userType"]:checked').value;
+            
+            if (selectedType === 'Pessoa Física') {
+                // Format CPF: 000.000.000-00
+                if (value.length > 3 && value.length <= 6) {
+                    input.value = value.slice(0, 3) + '.' + value.slice(3);
+                } else if (value.length > 6 && value.length <= 9) {
+                    input.value = value.slice(0, 3) + '.' + value.slice(3, 6) + '.' + value.slice(6);
+                } else if (value.length > 9) {
+                    input.value = value.slice(0, 3) + '.' + value.slice(3, 6) + '.' + value.slice(6, 9) + '-' + value.slice(9, 11);
+                }
+            } else {
+                // Format CNPJ: 00.000.000/0000-00
+                if (value.length > 2 && value.length <= 5) {
+                    input.value = value.slice(0, 2) + '.' + value.slice(2);
+                } else if (value.length > 5 && value.length <= 8) {
+                    input.value = value.slice(0, 2) + '.' + value.slice(2, 5) + '.' + value.slice(5);
+                } else if (value.length > 8 && value.length <= 12) {
+                    input.value = value.slice(0, 2) + '.' + value.slice(2, 5) + '.' + value.slice(5, 8) + '/' + value.slice(8);
+                } else if (value.length > 12) {
+                    input.value = value.slice(0, 2) + '.' + value.slice(2, 5) + '.' + value.slice(5, 8) + '/' + value.slice(8, 12) + '-' + value.slice(12, 14);
+                }
+            }
+        }
+        
+        function formatPhone(e) {
+            const input = e.target;
+            let value = input.value.replace(/\D/g, '');
+            
+            if (value.length > 2) {
+                value = '(' + value.slice(0, 2) + ') ' + value.slice(2);
+            }
+            
+            if (value.length > 10) {
+                value = value.slice(0, 10) + '-' + value.slice(10, 15);
+            }
+            
+            input.value = value;
+        }
+        
+        function formatCEP(e) {
+            const input = e.target;
+            let value = input.value.replace(/\D/g, '');
+            
+            if (value.length > 5) {
+                value = value.slice(0, 5) + '-' + value.slice(5, 8);
+            }
+            
+            input.value = value;
+        }
+        
+        function togglePassword(fieldId) {
+            const field = document.getElementById(fieldId);
+            const icon = field.nextElementSibling.querySelector('i');
+            
+            if (field.type === 'password') {
+                field.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                field.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        }
+        
+        function checkPasswordStrength() {
+            const password = document.getElementById('password').value;
+            const strengthBar = document.getElementById('passwordStrength');
+            const lengthReq = document.getElementById('lengthReq');
+            const numberReq = document.getElementById('numberReq');
+            const specialReq = document.getElementById('specialReq');
+            
+            let strength = 0;
+            
+            // Check length
+            if (password.length >= 8) {
+                strength += 1;
+                lengthReq.classList.remove('text-gray-500');
+                lengthReq.classList.add('text-green-500');
+            } else {
+                lengthReq.classList.remove('text-green-500');
+                lengthReq.classList.add('text-gray-500');
+            }
+            
+            // Check for numbers
+            if (/\d/.test(password)) {
+                strength += 1;
+                numberReq.classList.remove('text-gray-500');
+                numberReq.classList.add('text-green-500');
+            } else {
+                numberReq.classList.remove('text-green-500');
+                numberReq.classList.add('text-gray-500');
+            }
+            
+            // Check for special characters
+            if (/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+                strength += 1;
+                specialReq.classList.remove('text-gray-500');
+                specialReq.classList.add('text-green-500');
+            } else {
+                specialReq.classList.remove('text-green-500');
+                specialReq.classList.add('text-gray-500');
+            }
+            
+            // Check for both uppercase and lowercase (adds an extra point for stronger passwords)
+            if (/[a-z]/.test(password) && /[A-Z]/.test(password)) {
+                strength += 1;
+            }
+            
+            // Update strength bar
+            strengthBar.className = 'password-strength mt-2 rounded-full password-strength-' + strength;
+        }
+        
+        function searchCEP() {
+            const cepInput = document.getElementById('cep');
+            const cep = cepInput.value.replace(/\D/g, '');
+            const cepResult = document.getElementById('cepResult');
+            const cepResultText = document.getElementById('cepResultText');
+            
+            if (cep.length !== 8) {
+                showError(cepInput, 'cepError', 'CEP inválido');
+                return;
+            }
+            
+            // Simulate CEP search (in a real app, you would call an API here)
+            cepResultText.textContent = 'Serviço disponível para sua região!';
+            cepResult.classList.remove('hidden');
+            hideError(cepInput, 'cepError');
+            
+            // Simulate loading
+            cepResult.innerHTML = '<i class="fas fa-spinner fa-spin mr-2 text-blue-500"></i> Verificando CEP...';
+            
+            setTimeout(() => {
+                cepResult.innerHTML = '<i class="fas fa-check-circle mr-2 text-blue-500"></i> Serviço disponível para sua região!';
+                cepResult.classList.remove('hidden');
+            }, 1500);
+        }
+        
+        function validateForm(e) {
+            e.preventDefault(); // Prevent default form submission
+            let isValid = true;
+            const selectedType = document.querySelector('input[name="userType"]:checked').value;
+            
+            // Validate name
+            const name = document.getElementById('name');
+            if (!name.value.trim()) {
+                showError(name, 'nameError', 'Por favor, insira seu nome');
+                isValid = false;
+            } else {
+                hideError(name, 'nameError');
+            }
+            
+            // Validate document (CPF/CNPJ)
+            const documentInput = document.getElementById('document');
+            const documentValue = documentInput.value.replace(/\D/g, '');
+            if (selectedType === 'Pessoa Física' && documentValue.length !== 11) {
+                showError(documentInput, 'documentError', 'CPF inválido');
+                isValid = false;
+            } else if ((selectedType === 'Pessoa Jurídica' || selectedType === 'Prefeitura') && documentValue.length !== 14) {
+                showError(documentInput, 'documentError', 'CNPJ inválido');
+                isValid = false;
+            } else {
+                hideError(documentInput, 'documentError');
+            }
+            
+            // Validate email
+            const email = document.getElementById('email');
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
+                showError(email, 'emailError', 'E-mail inválido');
+                isValid = false;
+            } else {
+                hideError(email, 'emailError');
+            }
+            
+            // Validate supply number (if not prefeitura)
+            if (selectedType !== 'Prefeitura') {
+                const supplyNumber = document.getElementById('supplyNumber');
+                if (!/^\d{8}$/.test(supplyNumber.value)) {
+                    showError(supplyNumber, 'supplyNumberError', 'Número de fornecimento inválido');
+                    isValid = false;
+                } else {
+                    hideError(supplyNumber, 'supplyNumberError');
+                }
+            }
+            
+            // Validate password
+            const password = document.getElementById('password');
+            // Regex for at least 8 characters, one digit, one special character, one lowercase, one uppercase
+            if (!/(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>\-_+=\[\]\\|;:'",.<>\/?])(?=.*[a-z])(?=.*[A-Z]).{8,}/.test(password.value)) {
+                showError(password, 'passwordError', 'A senha não atende aos requisitos');
+                isValid = false;
+            } else {
+                hideError(password, 'passwordError');
+            }
+            
+            // Validate confirm password
+            const confirmPassword = document.getElementById('confirmPassword');
+            if (confirmPassword.value !== password.value) {
+                showError(confirmPassword, 'confirmPasswordError', 'As senhas não coincidem');
+                isValid = false;
+            } else {
+                hideError(confirmPassword, 'confirmPasswordError');
+            }
+            
+            // Validate phone
+            const phone = document.getElementById('phone');
+            const phoneDigits = phone.value.replace(/\D/g, '');
+            if (phoneDigits.length < 11) {
+                showError(phone, 'phoneError', 'Número de celular inválido');
+                isValid = false;
+            } else {
+                hideError(phone, 'phoneError');
+            }
+            
+            // Validate address
+            const address = document.getElementById('address');
+            if (!address.value.trim()) {
+                showError(address, 'addressError', 'Por favor, insira seu endereço');
+                isValid = false;
+            } else {
+                hideError(address, 'addressError');
+            }
+            
+            // Validate CEP
+            const cep = document.getElementById('cep');
+            const cepDigits = cep.value.replace(/\D/g, '');
+            if (cepDigits.length !== 8) {
+                showError(cep, 'cepError', 'CEP inválido');
+                isValid = false;
+            } else {
+                hideError(cep, 'cepError');
+            }
+            
+            // Validate matricula (if prefeitura)
+            if (selectedType === 'Prefeitura') {
+                const matricula = document.getElementById('matricula');
+                if (!matricula.value.trim()) {
+                    showError(matricula, 'matriculaError', 'Por favor, insira sua matrícula');
+                    isValid = false;
+                } else {
+                    hideError(matricula, 'matriculaError');
+                }
+            }
+            
+            if (isValid) {
+                // In a real application, you would submit the form data to the server here
+                // form.submit();
+                
+                // Instead of alert(), we will show a custom message or redirect directly
+                // For demonstration, we'll just redirect
+                
+                // Redirect based on user type
+                if (selectedType === 'Prefeitura') {
+                    // Redirect to public employee login
+                    window.location.href = 'login-funcionario.html';
+                } else {
+                    // Redirect to standard user dashboard
+                    window.location.href = 'dashboard.html';
+                }
+            }
+        }
+        
+        function showError(input, errorId, message) {
+            input.classList.add('input-error');
+            const errorElement = document.getElementById(errorId);
+            errorElement.textContent = message;
+            errorElement.classList.remove('hidden');
+        }
+        
+        function hideError(input, errorId) {
+            input.classList.remove('input-error');
+            document.getElementById(errorId).classList.add('hidden');
+        }
+
+        // Toggle mobile menu
+        document.getElementById('menu-button').addEventListener('click', function () {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+
+        // Highlight active navigation link
+        document.addEventListener('DOMContentLoaded', function () {
+            const links = document.querySelectorAll('.nav-link');
+            const currentPage = window.location.pathname.split('/').pop(); // gets the current file name
+
+            links.forEach(link => {
+                const href = link.getAttribute('href');
+                if (href === currentPage) {
+                    // Apply active hover style to the active link
+                    link.classList.add('text-cyan-600', 'font-semibold');
+                    link.classList.remove('text-gray-600');
+                } else {
+                    // Non-active links remain gray with cyan hover
+                    link.classList.add('text-gray-600', 'hover:text-cyan-600');
+                    link.classList.remove('text-cyan-600', 'font-semibold');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
